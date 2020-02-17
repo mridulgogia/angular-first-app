@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { Recipe } from '../recipe.model';
 
 @Component({
@@ -7,15 +7,22 @@ import { Recipe } from '../recipe.model';
   styleUrls: ['./recipes-list.component.scss']
 })
 export class RecipesListComponent implements OnInit {
-
+  @Output() recipeWasSelected = new EventEmitter<Recipe>();
   recipes: Recipe[] = [
-    new Recipe('A Test Recipe', 'This is simply a test', 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-190611-mandarin-orange-salad-274-portrait-pf-1561556606.png'),
-    new Recipe('A Test Recipe', 'This is simply a test', 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-190611-mandarin-orange-salad-274-portrait-pf-1561556606.png')
+    new Recipe('A Test Recipe',
+      'This is simply a test',
+      'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-190611-mandarin-orange-salad-274-portrait-pf-1561556606.png'),
+    // tslint:disable-next-line:max-line-length
+    new Recipe('Another Test Recipe', 'This is simply a test', 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-190611-mandarin-orange-salad-274-portrait-pf-1561556606.png')
   ];
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onRecipeSelected(recipe: Recipe) {
+    this.recipeWasSelected.emit(recipe);
   }
 
 }
